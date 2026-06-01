@@ -8,6 +8,7 @@ class Game(models.Model):
         ('N64', 'N64'),
         ('PS1', 'PlayStation 1'),
         ('GB', 'Game Boy'),
+        ('XBOX', 'Xbox'),
     ]
 
     GENRE_CHOICES = [
