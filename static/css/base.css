@@ -34,3 +34,10 @@
 .store-card .btn {
     margin-top: auto;
 }
+
+
+/* Sols Items greyed out */
+.is-sold {
+    opacity: 0.45;
+    filter: grayscale(100%);
+}

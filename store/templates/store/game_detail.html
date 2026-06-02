@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ game.title }}
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="row mb-5">
+
+        <div class="col-md-4">
+
+            <div class="image-container">
+
+                {% if game.cover_image %}
+                    <img
+                        src="{{ game.cover_image.url }}"
+                        alt="{{ game.title }}">
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        <div class="col-md-8">
+
+            <h1>{{ game.title }}</h1>
+
+            <p>
+                <strong>Console:</strong>
+                {{ game.get_console_display }}
+            </p>
+
+            <p>
+                <strong>Genre:</strong>
+                {{ game.get_genre_display }}
+            </p>
+
+            <p>
+                {{ game.description }}
+            </p>
+
+        </div>
+
+    </div>
+
+    <hr>
+
+    <h2 class="mb-4">Available Graded Copies</h2>
+
+    <div class="row">
+
+        {% for item in items %}
+
+            <div class="col-md-4 mb-4">
+
+                <div class="card store-card h-100 {% if not item.is_available %}is-sold{% endif %}">
+
+                    <div class="image-container">
+
+                        {% if item.slab_image %}
+                            <img
+                                src="{{ item.slab_image.url }}"
+                                alt="{{ game.title }} Grade {{ item.grade }}">
+                        {% endif %}
+
+                    </div>
+
+                    <div class="card-body">
+
+                        <h5 class="card-title">
+                            Grade {{ item.grade }}
+                        </h5>
+
+                        <p class="card-text">
+                            £{{ item.price }}
+                        </p>
+
+                        {% if item.is_available %}
+
+                            <p class="text-success">Available</p>
+
+                            <button class="btn btn-dark">
+                                Add to Basket
+                            </button>
+
+                        {% else %}
+
+                            <p class="text-danger">Sold</p>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        {% empty %}
+
+            <p>No graded copies available.</p>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -17,6 +17,6 @@ class GameAdmin(admin.ModelAdmin):
 
 @admin.register(GradedItem)
 class GradedItemAdmin(admin.ModelAdmin):
-    list_display = ('game', 'grade', 'price', 'stock', 'is_available')
+    list_display = ('game', 'grade', 'price', 'is_available')
     list_filter = ('grade', 'is_available')
     search_fields = ('game__title',)

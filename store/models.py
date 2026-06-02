@@ -48,7 +48,6 @@ class GradedItem(models.Model):
 
     grade = models.CharField(max_length=5, choices=GRADE_CHOICES)
     price = models.DecimalField(max_digits=8, decimal_places=2)
-    stock = models.PositiveIntegerField(default=1)
     is_available = models.BooleanField(default=True)
 
     slab_image = models.ImageField(upload_to='graded_items/')
