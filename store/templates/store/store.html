@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}
+Store
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <h1 class="mb-4">Store</h1>
+
+    <div class="row">
+
+        {% for game in games %}
+
+            <div class="col-md-6 col-lg-4 mb-4">
+
+                <div class="card store-card h-100">
+
+                    <div class="image-container">
+                    {% if game.cover_image %}
+                        <img
+                            src="{{ game.cover_image.url }}"
+                            class="card-img-top"
+                            alt="{{ game.title }}">
+                    {% endif %}
+                    </div>
+
+                    <div class="card-body">
+
+                        <h5 class="card-title">
+                            {{ game.title }}
+                        </h5>
+
+                        <p class="card-text">
+                            {{ game.get_console_display }}
+                        </p>
+
+                        <p class="card-text">
+                            {{ game.get_genre_display }}
+                        </p>
+
+                        <a
+                            href="#"
+                            class="btn btn-dark">
+
+                            View Available Graded Copies
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        {% empty %}
+
+            <p>No games available.</p>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}
