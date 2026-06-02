@@ -82,9 +82,9 @@
 
                             <p class="text-success">Available</p>
 
-                            <button class="btn btn-dark">
+                            <a href="{% url 'add_to_basket' item.id %}" class="btn btn-dark">
                                 Add to Basket
-                            </button>
+                            </a>
 
                         {% else %}
 

@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import redirect, render, get_object_or_404
 from .models import Game, GradedItem
 
 
@@ -34,3 +34,24 @@ def game_detail(request, game_id):
         'store/game_detail.html',
         context
     )
+
+def add_to_basket(request, item_id):
+    basket = request.session.get('basket', [])
+
+    if item_id not in basket:
+        basket.append(item_id)
+
+    request.session['basket'] = basket
+
+    return redirect('basket_view')
+
+def view_basket(request):
+    basket = request.session.get('basket', [])
+
+    items = GradedItem.objects.filter(id__in=basket)
+
+    context = {
+        'items': items
+    }
+
+    return render(request, 'store/basket.html', context)
