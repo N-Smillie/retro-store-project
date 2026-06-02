@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from .models import Game, GradedItem
-
+from django.contrib import messages
 
 def all_products(request):
     """
@@ -36,14 +36,36 @@ def game_detail(request, game_id):
     )
 
 def add_to_basket(request, item_id):
+
+    item = get_object_or_404(
+        GradedItem,
+        pk=item_id
+    )
+
     basket = request.session.get('basket', [])
 
     if item_id not in basket:
+
         basket.append(item_id)
+
+        messages.success(
+            request,
+            f'{item.game.title} ({item.grade}) added to basket.'
+        )
+
+    else:
+
+        messages.warning(
+            request,
+            'This item is already in your basket.'
+        )
 
     request.session['basket'] = basket
 
-    return redirect('basket_view')
+    return redirect(
+        'game_detail',
+        game_id=item.game.id
+    )
 
 def view_basket(request):
     basket = request.session.get('basket', [])
