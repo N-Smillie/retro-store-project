@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from .models import Game, GradedItem
 from django.contrib import messages
+from django.views.decorators.http import require_POST
 
 def all_products(request):
     """
@@ -35,6 +36,7 @@ def game_detail(request, game_id):
         context
     )
 
+@require_POST
 def add_to_basket(request, item_id):
 
     item = get_object_or_404(
