@@ -50,21 +50,14 @@ def add_to_basket(request, item_id):
 
         basket.append(item_id)
 
-        request.session['last_added_item'] = {
+        request.session['toast_item'] = {
             'title': item.game.title,
             'grade': item.grade,
             'price': str(item.price),
-            'image': (
-                item.slab_image.url
-                if item.slab_image
-                else ''
-            ),
+            'image': item.slab_image.url if item.slab_image else '',
         }
 
-        messages.success(
-            request,
-            f'{item.game.title} ({item.grade}) added to basket.'
-        )
+        messages.success(request, "Added to basket")
 
     else:
 
@@ -90,3 +83,33 @@ def view_basket(request):
     }
 
     return render(request, 'store/basket.html', context)
+
+def remove_from_basket(request, item_id):
+
+    basket = request.session.get('basket', [])
+
+    item = get_object_or_404(GradedItem, pk=item_id)
+
+    if item_id in basket:
+
+        basket.remove(item_id)
+
+        request.session['toast_item'] = {
+            'title': item.game.title,
+            'grade': item.grade,
+            'price': str(item.price),
+            'image': item.slab_image.url if item.slab_image else '',
+        }
+
+        messages.warning(request, "Removed from basket")
+
+    else:
+
+        messages.warning(
+            request,
+            'Item was not in your basket.'
+        )
+
+    request.session['basket'] = basket
+
+    return redirect('basket_view')

@@ -90,39 +90,38 @@
 
     <!-- Messages -->
     <div class="toast-container position-fixed top-0 end-0 p-3">
-      {% for message in messages %}
+      {% if messages %} {% for message in messages %}
 
       <div
-        class="toast align-items-center border-0 {% if message.tags == 'success' %} text-bg-success {% elif message.tags == 'warning' %} text-bg-warning {% elif message.tags == 'error' %} text-bg-danger {% else %} text-bg-primary {% endif %}"
+        class="toast align-items-center border-0 text-bg-{{ message.tags }} show"
         role="alert"
         aria-live="assertive"
         aria-atomic="true"
       >
         <div class="d-flex">
-          <div class="toast-body">
-            {% if message.tags == 'success' and last_added_item %}
+          <div class="toast-body d-flex align-items-center">
+            {% if toast_item %}
 
-            <div class="d-flex align-items-center">
-              <img
-                src="{{ last_added_item.image }}"
-                alt="{{ last_added_item.title }}"
-                class="toast-image me-3"
-              />
+            <img
+              src="{{ toast_item.image }}"
+              class="toast-image me-3"
+              alt="{{ toast_item.title }}"
+            />
 
-              <div>
-                <strong> {{ last_added_item.title }} </strong>
+            {% endif %}
 
-                <br />
+            <div>
+              <strong>{{ message }}</strong>
 
-                Grade {{ last_added_item.grade }}
+              {% if toast_item %}
 
-                <br />
-
-                £{{ last_added_item.price }}
+              <div class="small">
+                {{ toast_item.title }} (Grade {{ toast_item.grade }})<br />
+                £{{ toast_item.price }}
               </div>
-            </div>
 
-            {% else %} {{ message }} {% endif %}
+              {% endif %}
+            </div>
           </div>
 
           <button
@@ -134,7 +133,7 @@
         </div>
       </div>
 
-      {% endfor %}
+      {% endfor %} {% endif %}
     </div>
 
     <!-- Main Content -->
