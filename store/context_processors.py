@@ -20,7 +20,13 @@ def basket_contents(request):
     for item in items:
         basket_total += item.price
 
+    last_added_item = request.session.get(
+        'last_added_item',
+        None
+    )
+
     return {
         'basket_count': basket_count,
         'basket_total': basket_total,
+        'last_added_item': last_added_item,
     }

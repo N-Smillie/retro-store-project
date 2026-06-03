@@ -36,8 +36,22 @@
 }
 
 
-/* Sols Items greyed out */
+/* Sold Items greyed out */
 .is-sold {
     opacity: 0.45;
     filter: grayscale(100%);
+}
+
+/* Toasts */
+
+.toast-container {
+    z-index: 100000;
+    margin-top: 100px;
+}
+
+.toast-image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 4px;
 }

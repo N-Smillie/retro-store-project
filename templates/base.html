@@ -78,47 +78,63 @@
           </ul>
 
           <ul class="navbar-nav ms-lg-3">
-
             <li class="nav-item text-center">
+              <a class="nav-link" href="{% url 'basket_view' %}"> Basket </a>
 
-              <a
-                class="nav-link"
-                href="{% url 'basket_view' %}">
-
-                Basket
-
-              </a>
-
-              <div class="basket-total text-light">
-
-                £{{ basket_total }}
-
-              </div>
-
+              <div class="basket-total text-light">£{{ basket_total }}</div>
             </li>
-
           </ul>
         </div>
       </div>
     </nav>
 
     <!-- Messages -->
-    <div class="container mt-3">
+    <div class="toast-container position-fixed top-0 end-0 p-3">
+      {% for message in messages %}
 
-    {% if messages %}
+      <div
+        class="toast align-items-center border-0 {% if message.tags == 'success' %} text-bg-success {% elif message.tags == 'warning' %} text-bg-warning {% elif message.tags == 'error' %} text-bg-danger {% else %} text-bg-primary {% endif %}"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+      >
+        <div class="d-flex">
+          <div class="toast-body">
+            {% if message.tags == 'success' and last_added_item %}
 
-        {% for message in messages %}
+            <div class="d-flex align-items-center">
+              <img
+                src="{{ last_added_item.image }}"
+                alt="{{ last_added_item.title }}"
+                class="toast-image me-3"
+              />
 
-            <div class="alert alert-{{ message.tags }}">
+              <div>
+                <strong> {{ last_added_item.title }} </strong>
 
-                {{ message }}
+                <br />
 
+                Grade {{ last_added_item.grade }}
+
+                <br />
+
+                £{{ last_added_item.price }}
+              </div>
             </div>
 
-        {% endfor %}
+            {% else %} {{ message }} {% endif %}
+          </div>
 
-    {% endif %}
+          <button
+            type="button"
+            class="btn-close btn-close-white me-2 m-auto"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+      </div>
 
+      {% endfor %}
     </div>
 
     <!-- Main Content -->

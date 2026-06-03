@@ -48,6 +48,17 @@ def add_to_basket(request, item_id):
 
         basket.append(item_id)
 
+        request.session['last_added_item'] = {
+            'title': item.game.title,
+            'grade': item.grade,
+            'price': str(item.price),
+            'image': (
+                item.slab_image.url
+                if item.slab_image
+                else ''
+            ),
+        }
+
         messages.success(
             request,
             f'{item.game.title} ({item.grade}) added to basket.'
