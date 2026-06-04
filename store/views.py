@@ -39,12 +39,10 @@ def game_detail(request, game_id):
 @require_POST
 def add_to_basket(request, item_id):
 
-    item = get_object_or_404(
-        GradedItem,
-        pk=item_id
-    )
+    item_id = int(item_id)
+    item = get_object_or_404(GradedItem, pk=item_id)
 
-    basket = request.session.get('basket', [])
+    basket = [int(x) for x in request.session.get('basket', [])]
 
     if item_id not in basket:
 
@@ -68,13 +66,12 @@ def add_to_basket(request, item_id):
 
     request.session['basket'] = basket
 
-    return redirect(
-        'game_detail',
-        game_id=item.game.id
-    )
+    return redirect('game_detail', game_id=item.game.id)
+
 
 def view_basket(request):
-    basket = request.session.get('basket', [])
+
+    basket = [int(x) for x in request.session.get('basket', [])]
 
     items = GradedItem.objects.filter(id__in=basket)
 
@@ -84,9 +81,11 @@ def view_basket(request):
 
     return render(request, 'store/basket.html', context)
 
+
 def remove_from_basket(request, item_id):
 
-    basket = request.session.get('basket', [])
+    item_id = int(item_id)
+    basket = [int(x) for x in request.session.get('basket', [])]
 
     item = get_object_or_404(GradedItem, pk=item_id)
 
@@ -105,10 +104,7 @@ def remove_from_basket(request, item_id):
 
     else:
 
-        messages.warning(
-            request,
-            'Item was not in your basket.'
-        )
+        messages.warning(request, 'Item was not in your basket.')
 
     request.session['basket'] = basket
 

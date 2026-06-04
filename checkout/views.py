@@ -3,24 +3,56 @@ from .models import Order, OrderLineItem
 from store.models import GradedItem
 from .forms import OrderForm
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 
 @login_required
 def checkout(request):
 
-    basket = request.session.get('basket', [])
+    basket = [int(x) for x in request.session.get('basket', [])]
 
     if not basket:
         return redirect('basket_view')
 
-    items = GradedItem.objects.filter(id__in=basket)
+    items = sorted(
+        GradedItem.objects.filter(id__in=basket),
+        key=lambda x: basket.index(x.id)
+    )
 
-    order_total = 0
+    order_total = sum(item.price for item in items)
 
-    for item in items:
-        order_total += item.price
+    if request.method == 'POST':
 
-    order_form = OrderForm()
+        order_form = OrderForm(request.POST)
+
+        if order_form.is_valid():
+
+            order = order_form.save(commit=False)
+            order.user = request.user
+            order.order_total = order_total
+            order.save()
+
+            for item in items:
+                OrderLineItem.objects.create(
+                    order=order,
+                    graded_item=item,
+                    item_price=item.price,
+                )
+
+            request.session.pop('basket', None)
+
+            messages.success(
+                request,
+                f'Order {order.order_number} created successfully.'
+            )
+
+            return redirect('checkout_success', order_number=order.order_number)
+
+        else:
+            messages.error(request, "There was an error with your form. Please check your details.")
+
+    else:
+        order_form = OrderForm()
 
     context = {
         'items': items,
@@ -28,8 +60,4 @@ def checkout(request):
         'order_form': order_form,
     }
 
-    return render(
-        request,
-        'checkout/checkout.html',
-        context
-    )
+    return render(request, 'checkout/checkout.html', context)
