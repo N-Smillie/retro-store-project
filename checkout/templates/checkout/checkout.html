@@ -4,31 +4,183 @@
 
 <div class="container">
 
-    <h1>Checkout</h1>
+    <h1 class="mb-4">Checkout</h1>
 
-    {% for item in items %}
+    <div class="row">
 
-        <div class="card mb-3">
+        <!-- Order Summary -->
+        <div class="col-lg-6 mb-4">
 
-            <div class="card-body">
+            <div class="card">
 
-                <h5>
-                    {{ item.game.title }}
-                </h5>
+                <div class="card-body">
 
-                <p>
-                    Grade {{ item.grade }}
-                </p>
+                    <h3 class="mb-3">
+                        Order Summary
+                    </h3>
 
-                <p>
-                    £{{ item.price }}
-                </p>
+                    {% for item in items %}
+
+                        <div class="d-flex justify-content-between border-bottom py-3">
+
+                            <div>
+
+                                <strong>
+                                    {{ item.game.title }}
+                                </strong>
+
+                                <div class="text-muted">
+
+                                    Grade {{ item.grade }}
+
+                                </div>
+
+                            </div>
+
+                            <div>
+
+                                £{{ item.price }}
+
+                            </div>
+
+                        </div>
+
+                    {% endfor %}
+
+                    <div class="mt-4 text-end">
+
+                        <h4>
+                            Total: £{{ order_total }}
+                        </h4>
+
+                    </div>
+
+                </div>
 
             </div>
 
         </div>
 
-    {% endfor %}
+        <!-- Shipping Information -->
+        <div class="col-lg-6">
+
+            <div class="card">
+
+                <div class="card-body">
+
+                    <h3 class="mb-3">
+                        Shipping Information
+                    </h3>
+
+                    <form method="POST">
+
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+
+                            {{ order_form.full_name.label_tag }}
+
+                            {{ order_form.full_name }}
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            {{ order_form.email.label_tag }}
+
+                            {{ order_form.email }}
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            {{ order_form.phone_number.label_tag }}
+
+                            {{ order_form.phone_number }}
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            {{ order_form.street_address1.label_tag }}
+
+                            {{ order_form.street_address1 }}
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            {{ order_form.street_address2.label_tag }}
+
+                            {{ order_form.street_address2 }}
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-6 mb-3">
+
+                                {{ order_form.town_or_city.label_tag }}
+
+                                {{ order_form.town_or_city }}
+
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+
+                                {{ order_form.postcode.label_tag }}
+
+                                {{ order_form.postcode }}
+
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-6 mb-3">
+
+                                {{ order_form.county.label_tag }}
+
+                                {{ order_form.county }}
+
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+
+                                {{ order_form.country.label_tag }}
+
+                                {{ order_form.country }}
+
+                            </div>
+
+                        </div>
+
+                        <a
+                            href="{% url 'basket_view' %}"
+                            class="btn btn-outline-secondary w-100 mb-3">
+
+                            Back to Basket
+
+                        </a>
+
+                        <button
+                            type="submit"
+                            class="btn btn-dark w-100">
+
+                            Continue to Payment
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
 
