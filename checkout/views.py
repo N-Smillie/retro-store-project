@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Order, OrderLineItem
 from store.models import GradedItem
 from .forms import OrderForm
@@ -61,3 +61,20 @@ def checkout(request):
     }
 
     return render(request, 'checkout/checkout.html', context)
+
+def checkout_success(request, order_number):
+
+    order = get_object_or_404(Order, order_number=order_number)
+    
+    request.session.pop('basket', None)
+
+    messages.success(
+        request,
+        f'Order {order.order_number} completed successfully!'
+    )
+
+    context = {
+        'order': order,
+    }
+
+    return render(request, 'checkout/checkout_success.html', context)

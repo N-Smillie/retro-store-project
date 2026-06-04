@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container py-4">
+
+    <div class="text-center mb-4">
+
+        <h1>Thank you for your order!</h1>
+
+        <p class="text-muted">
+            Your order has been successfully placed.
+        </p>
+
+        <p>
+            <strong>Order Number:</strong>
+            {{ order.order_number }}
+        </p>
+
+    </div>
+
+    <div class="card">
+
+        <div class="card-body">
+
+            <h3 class="mb-3">Order Summary</h3>
+
+            {% for item in order.lineitems.all %}
+
+                <div class="d-flex justify-content-between border-bottom py-2">
+
+                    <div>
+                        <strong>
+                            {{ item.graded_item.game.title }}
+                        </strong>
+                        <br>
+                        Grade {{ item.graded_item.grade }}
+                    </div>
+
+                    <div>
+                        £{{ item.item_price }}
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+            <div class="text-end mt-3">
+
+                <h4>
+                    Total: £{{ order.order_total }}
+                </h4>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="text-center mt-4">
+
+        <a href="{% url 'store' %}" class="btn btn-dark">
+            Continue Shopping
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}
