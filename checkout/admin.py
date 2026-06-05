@@ -6,6 +6,13 @@ class OrderLineItemInline(admin.TabularInline):
     model = OrderLineItem
     extra = 0
 
+    readonly_fields = (
+        'graded_item',
+        'item_price',
+    )
+
+    can_delete = False
+
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
@@ -39,10 +46,16 @@ class OrderAdmin(admin.ModelAdmin):
     inlines = [OrderLineItemInline]
 
 
-
 @admin.register(OrderLineItem)
 class OrderLineItemAdmin(admin.ModelAdmin):
+
     list_display = (
+        'order',
+        'graded_item',
+        'item_price',
+    )
+
+    readonly_fields = (
         'order',
         'graded_item',
         'item_price',
