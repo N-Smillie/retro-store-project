@@ -4,6 +4,8 @@ from store.models import GradedItem
 from .forms import OrderForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.conf import settings
+import stripe
 
 
 @login_required
@@ -54,10 +56,21 @@ def checkout(request):
     else:
         order_form = OrderForm()
 
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+
+    stripe_total = round(order_total * 100)
+
+    intent = stripe.PaymentIntent.create(
+        amount=stripe_total,
+        currency=settings.STRIPE_CURRENCY,
+    )
+
     context = {
         'items': items,
         'order_total': order_total,
         'order_form': order_form,
+        'stripe_public_key': settings.STRIPE_PUBLIC_KEY,
+        'client_secret': intent.client_secret,
     }
 
     return render(request, 'checkout/checkout.html', context)
