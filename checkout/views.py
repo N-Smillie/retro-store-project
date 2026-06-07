@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.conf import settings
 import stripe
+import json
 
 
 @login_required
@@ -32,6 +33,14 @@ def checkout(request):
             order = order_form.save(commit=False)
             order.user = request.user
             order.order_total = order_total
+            
+            client_secret = request.POST.get('client_secret')
+
+            if client_secret:
+                pid = client_secret.split('_secret')[0]
+                order.stripe_pid = pid
+
+            order.original_basket = json.dumps(basket)
             order.save()
 
             for item in items:
