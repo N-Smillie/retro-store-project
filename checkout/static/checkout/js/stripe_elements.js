@@ -29,3 +29,44 @@ var style = {
 var card = elements.create('card', {style: style});
 
 card.mount('#card-element');
+
+// Handle form submit
+form.addEventListener(
+    'submit',
+    async function(event) {
+
+        event.preventDefault();
+
+        card.update({ disabled: true });
+
+        submitButton.disabled = true;
+
+        const result =
+            await stripe.confirmCardPayment(
+                clientSecret,
+                {
+                    payment_method: {
+                        card: card
+                    }
+                }
+            );
+
+        if (result.error) {
+
+            errorDiv.textContent =
+                result.error.message;
+
+            card.update({ disabled: false });
+
+            submitButton.disabled = false;
+
+        } else if (
+            result.paymentIntent.status ===
+            'succeeded'
+        ) {
+
+            form.submit();
+
+        }
+    }
+);

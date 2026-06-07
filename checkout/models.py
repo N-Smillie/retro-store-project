@@ -31,6 +31,15 @@ class Order(models.Model):
     county = models.CharField(max_length=50, blank=True)
     country = models.CharField(max_length=50)
 
+    stripe_pid = models.CharField(
+        max_length=254,
+        blank=True
+    )
+
+    original_basket = models.TextField(
+        blank=True
+    )
+
     created_at = models.DateTimeField(
         auto_now_add=True
     )

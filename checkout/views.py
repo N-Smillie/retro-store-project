@@ -41,13 +41,6 @@ def checkout(request):
                     item_price=item.price,
                 )
 
-            request.session.pop('basket', None)
-
-            messages.success(
-                request,
-                f'Order {order.order_number} created successfully.'
-            )
-
             return redirect('checkout_success', order_number=order.order_number)
 
         else:
