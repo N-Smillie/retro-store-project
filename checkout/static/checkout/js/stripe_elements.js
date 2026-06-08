@@ -46,7 +46,24 @@ form.addEventListener(
                 clientSecret,
                 {
                     payment_method: {
-                        card: card
+                        card: card,
+                        billing_details: {
+                            name: form.full_name.value.trim(),
+                            phone: form.phone_number.value.trim(),
+                            email: form.email.value.trim(),
+                        }
+                    },
+                    shipping: {
+                        name: form.full_name.value.trim(),
+                        phone: form.phone_number.value.trim(),
+                        address: {
+                            line1: form.street_address1.value.trim(),
+                            line2: form.street_address2.value.trim(),
+                            city: form.town_or_city.value.trim(),
+                            country: form.country.value.trim(),
+                            postal_code: form.postcode.value.trim(),
+                            state: form.county.value.trim(),
+                        }
                     }
                 }
             );
