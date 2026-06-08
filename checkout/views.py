@@ -24,39 +24,7 @@ def checkout(request):
 
     order_total = sum(item.price for item in items)
 
-    if request.method == 'POST':
-
-        order_form = OrderForm(request.POST)
-
-        if order_form.is_valid():
-
-            order = order_form.save(commit=False)
-            order.user = request.user
-            order.order_total = order_total
-            
-            client_secret = request.POST.get('client_secret')
-
-            if client_secret:
-                pid = client_secret.split('_secret')[0]
-                order.stripe_pid = pid
-
-            order.original_basket = json.dumps(basket)
-            order.save()
-
-            for item in items:
-                OrderLineItem.objects.create(
-                    order=order,
-                    graded_item=item,
-                    item_price=item.price,
-                )
-
-            return redirect('checkout_success', order_number=order.order_number)
-
-        else:
-            messages.error(request, "There was an error with your form. Please check your details.")
-
-    else:
-        order_form = OrderForm()
+    order_form = OrderForm(request.POST or None)
 
     stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -66,8 +34,8 @@ def checkout(request):
         amount=stripe_total,
         currency=settings.STRIPE_CURRENCY,
         metadata={
-        'basket': json.dumps(basket),
-        'username': request.user.username,
+            'basket': json.dumps(basket),
+            'user_id': request.user.id,
         }
     )
 
