@@ -24,10 +24,7 @@ def checkout(request):
 
     order_total = sum(item.price for item in items)
 
-    order_form = OrderForm(request.POST or None)
-
     stripe.api_key = settings.STRIPE_SECRET_KEY
-
     stripe_total = round(order_total * 100)
 
     intent = stripe.PaymentIntent.create(
@@ -39,6 +36,46 @@ def checkout(request):
         }
     )
 
+    if request.method == 'POST':
+
+        order_form = OrderForm(request.POST)
+
+        if order_form.is_valid():
+
+            order = order_form.save(commit=False)
+            order.user = request.user
+            order.order_total = order_total
+
+            client_secret = request.POST.get('client_secret')
+            if client_secret:
+                pid = client_secret.split('_secret')[0]
+                order.stripe_pid = pid
+
+            order.original_basket = json.dumps(basket)
+            order.save()
+
+            for item in items:
+                OrderLineItem.objects.create(
+                    order=order,
+                    graded_item=item,
+                    item_price=item.price,
+                )
+
+            request.session['basket'] = []
+
+            messages.success(
+                request,
+                f'Order {order.order_number} created successfully!'
+            )
+
+            return redirect('checkout_success', order_number=order.order_number)
+
+        else:
+            messages.error(request, "There was an error with your form. Please check your details.")
+
+    else:
+        order_form = OrderForm()
+
     context = {
         'items': items,
         'order_total': order_total,
@@ -49,10 +86,11 @@ def checkout(request):
 
     return render(request, 'checkout/checkout.html', context)
 
+
 def checkout_success(request, order_number):
 
     order = get_object_or_404(Order, order_number=order_number)
-    
+
     request.session.pop('basket', None)
 
     messages.success(
