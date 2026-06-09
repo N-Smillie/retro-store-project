@@ -33,7 +33,10 @@ class StripeWH_Handler:
         if Order.objects.filter(stripe_pid=pid).exists():
             return HttpResponse(status=200)
 
-        user = User.objects.get(id=user_id)
+        try:
+            user = User.objects.get(id=user_id)
+        except User.DoesNotExist:
+            return HttpResponse(status=400)
 
         order = Order.objects.create(
             user=user,
