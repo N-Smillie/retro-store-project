@@ -25,6 +25,10 @@ document.addEventListener('DOMContentLoaded', function() {
         card.update({ disabled: true });
         submitButton.disabled = true;
 
+        document
+            .getElementById('loading-overlay')
+            .classList.remove('d-none');
+
         const result = await stripe.confirmCardPayment(
             clientSecret,
             {
@@ -52,6 +56,10 @@ document.addEventListener('DOMContentLoaded', function() {
         );
 
         if (result.error) {
+
+            document
+                .getElementById('loading-overlay')
+                .classList.add('d-none');
 
             errorDiv.textContent = result.error.message;
 

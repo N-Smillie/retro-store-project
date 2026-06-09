@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block extra_css %}
+<link
+    rel="stylesheet"
+    href="{% static 'checkout/css/checkout.css' %}">
+{% endblock %}
+
 {% block content %}
 
 <div class="container">
@@ -203,6 +209,26 @@
 
 </div>
 
+    <!-- Loading Overlay -->
+        <div id="loading-overlay" class="d-none">
+
+            <div class="text-center text-white">
+
+                <div
+                    class="spinner-border mb-3"
+                    role="status">
+                    <span class="visually-hidden">
+                        Loading...
+                    </span>
+                </div>
+
+                <p>
+                    Processing payment...
+                </p>
+
+            </div>
+
+        </div>
 {% endblock %}
 
 {% block postloadjs %}
