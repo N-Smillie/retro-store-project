@@ -18,7 +18,7 @@ def basket_contents(request):
         items = []
         basket_total = 0
 
-    toast_item = request.session.get('toast_item')
+    toast_item = request.session.pop('toast_item', None)
 
     return {
         'basket_count': basket_count,

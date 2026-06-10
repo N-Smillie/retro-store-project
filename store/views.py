@@ -59,12 +59,13 @@ def add_to_basket(request, item_id):
 
     else:
 
-        messages.warning(
+        messages.info(
             request,
             'This item is already in your basket.'
         )
 
     request.session['basket'] = basket
+    request.session.modified = True
 
     return redirect('game_detail', game_id=item.game.id)
 
@@ -100,12 +101,13 @@ def remove_from_basket(request, item_id):
             'image': item.slab_image.url if item.slab_image else '',
         }
 
-        messages.warning(request, "Removed from basket")
+        messages.error(request, "Removed from basket")
 
     else:
 
-        messages.warning(request, 'Item was not in your basket.')
+        messages.info(request, 'Item was not in your basket.')
 
     request.session['basket'] = basket
+    request.session.modified = True
 
     return redirect('basket_view')

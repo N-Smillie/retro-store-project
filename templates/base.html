@@ -27,7 +27,7 @@
 
   <body>
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg">
       <div class="container">
         <a class="navbar-brand" href="{% url 'home' %}"> Retro Store </a>
 
@@ -47,11 +47,11 @@
         <div class="collapse navbar-collapse" id="main-nav">
           <ul class="navbar-nav me-auto">
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'home' %}"> Home </a>
+              <a class="nav-link {% if request.path == '/' %}active-nav{% endif %}" href="{% url 'home' %}"> Home </a>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'store' %}"> Store </a>
+              <a class="nav-link {% if request.path == '/store/' %}active-nav{% endif %}" href="{% url 'store' %}"> Store </a>
             </li>
           </ul>
 
@@ -59,7 +59,7 @@
           <ul class="navbar-nav">
             {% if user.is_authenticated %}
             <li>
-              <a class="nav-link" href="{% url 'profile' %}"> Profile </a>
+              <a class="nav-link {% if request.path == '/profile/' %}active-nav{% endif %}" href="{% url 'profile' %}"> Profile </a>
             </li>
             
             <li class="nav-item">
@@ -86,10 +86,14 @@
           </ul>
 
           <ul class="navbar-nav ms-lg-3">
-            <li class="nav-item text-center">
-              <a class="nav-link" href="{% url 'basket_view' %}"> Basket </a>
-
-              <div class="basket-total text-light">£{{ basket_total }}</div>
+            <li class="nav-item">
+              <a class="nav-link basket-link {% if request.path == '/store/basket/' %}active-nav{% endif %}"
+                href="{% url 'basket_view' %}">
+                Basket
+                <span class="basket-total">
+                  £{{ basket_total }}
+                </span>
+              </a>
             </li>
           </ul>
         </div>
@@ -97,52 +101,67 @@
     </nav>
 
     <!-- Messages -->
-    <div class="toast-container position-fixed top-0 end-0 p-3">
-      {% if messages %} {% for message in messages %}
+    <div class="toast-container position-fixed end-0 p-3">
 
-      <div
-        class="toast align-items-center border-0 text-bg-{{ message.tags }} show"
-        role="alert"
-        aria-live="assertive"
-        aria-atomic="true"
-      >
-        <div class="d-flex">
-          <div class="toast-body d-flex align-items-center">
-            {% if toast_item %}
+    {% if messages %}
+    {% for message in messages %}
 
-            <img
-              src="{{ toast_item.image }}"
-              class="toast-image me-3"
-              alt="{{ toast_item.title }}"
-            />
+        {% if 'success' in message.tags %}
+        <div class="toast custom-toast align-items-center border-0 fade show toast-success"
+             role="alert"
+             aria-live="assertive"
+             aria-atomic="true">
 
-            {% endif %}
+        {% elif 'error' in message.tags %}
+        <div class="toast custom-toast align-items-center border-0 fade show toast-error"
+             role="alert"
+             aria-live="assertive"
+             aria-atomic="true">
 
-            <div>
-              <strong>{{ message }}</strong>
+        {% else %}
+        <div class="toast custom-toast align-items-center border-0 fade show toast-info"
+             role="alert"
+             aria-live="assertive"
+             aria-atomic="true">
+        {% endif %}
 
-              {% if toast_item %}
+            <div class="d-flex">
 
-              <div class="small">
-                {{ toast_item.title }} (Grade {{ toast_item.grade }})<br />
-                £{{ toast_item.price }}
-              </div>
+                <div class="toast-body">
+                    <div class="d-flex align-items-center">
 
-              {% endif %}
+                        {% if toast_item and toast_item.image %}
+                        <img src="{{ toast_item.image }}"
+                             class="toast-image me-3"
+                             alt="{{ toast_item.title }}">
+                        {% endif %}
+
+                        <div>
+                            <strong>{{ message }}</strong>
+
+                            {% if toast_item %}
+                            <div class="small">
+                                {{ toast_item.title }} (Grade {{ toast_item.grade }})<br>
+                                £{{ toast_item.price }}
+                            </div>
+                            {% endif %}
+                        </div>
+
+                    </div>
+                </div>
+
+                <button type="button"
+                        class="btn-close btn-close-white me-2 m-auto"
+                        data-bs-dismiss="toast"
+                        aria-label="Close"></button>
+
             </div>
-          </div>
-
-          <button
-            type="button"
-            class="btn-close btn-close-white me-2 m-auto"
-            data-bs-dismiss="toast"
-            aria-label="Close"
-          ></button>
         </div>
-      </div>
 
-      {% endfor %} {% endif %}
-    </div>
+    {% endfor %}
+    {% endif %}
+
+</div>
 
     <!-- Main Content -->
     <main class="container py-4">{% block content %} {% endblock %}</main>
