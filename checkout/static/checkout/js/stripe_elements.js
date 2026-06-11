@@ -15,7 +15,22 @@ document.addEventListener('DOMContentLoaded', function() {
     var stripe = Stripe(stripePublicKey);
     var elements = stripe.elements();
 
-    var card = elements.create('card');
+    var card = elements.create('card', {
+        hidePostalCode: true,
+        style: {
+            base: {
+                color: '#f8fafc',
+                fontFamily: '"Electrolize", sans-serif',
+                fontSize: '16px',
+                '::placeholder': {
+                    color: '#94a3b8'
+                }
+            },
+            invalid: {
+                color: '#ef4444'
+            }
+        }
+    });
     card.mount('#card-element');
 
     form.addEventListener('submit', async function(event) {

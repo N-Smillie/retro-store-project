@@ -175,6 +175,11 @@ a:hover {
     color: var(--text-color);
 }
 
+.form-control::placeholder,
+.form-select::placeholder {
+    color: #94a3b8;
+}
+
 /* Allauth */
 
 .auth-form input {
