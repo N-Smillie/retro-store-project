@@ -1,0 +1,41 @@
+{% extends "account/base_entrance.html" %}
+{% load i18n %}
+{% load allauth account %}
+
+{% block inner_content %}
+
+<div class="auth-form">
+
+    <h1 class="mb-4 text-center">
+        {% trans "Sign In" %}
+    </h1>
+
+    {% if not SOCIALACCOUNT_ONLY %}
+
+        <p class="text-center mb-4">
+            <a href="{{ signup_url }}">Register</a> if you don’t have an account
+        </p>
+
+        {% url 'account_login' as login_url %}
+
+        <form method="post" action="{{ login_url }}">
+
+            {% csrf_token %}
+            {{ redirect_field }}
+
+            <div class="mb-3">
+                {% element fields form=form unlabeled=True %}
+                {% endelement %}
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">
+                Sign In
+            </button>
+
+        </form>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

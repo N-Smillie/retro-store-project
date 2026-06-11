@@ -154,6 +154,10 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+LOGIN_URL = 'account_login'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
+
 # Stripe settings
 STRIPE_PUBLIC_KEY = os.environ.get(
     "STRIPE_PUBLIC_KEY"

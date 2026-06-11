@@ -1,0 +1,44 @@
+{% extends "account/base_entrance.html" %}
+{% load i18n %}
+
+{% block inner_content %}
+
+<div class="auth-form">
+
+    <h1 class="mb-4 text-center">
+        {% trans "Create Account" %}
+    </h1>
+
+    <p class="text-center mb-4">
+        Already have an account?
+        <a href="{% url 'account_login' %}">Sign in</a>
+    </p>
+
+    <form method="post" action="{% url 'account_signup' %}">
+
+        {% csrf_token %}
+        {{ redirect_field }}
+
+        <div class="mb-3">
+            {% for field in form %}
+                <div class="mb-3">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% if field.errors %}
+                        <div class="text-danger small">
+                            {{ field.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">
+            Register
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}

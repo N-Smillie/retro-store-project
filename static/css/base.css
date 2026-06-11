@@ -175,6 +175,37 @@ a:hover {
     color: var(--text-color);
 }
 
+/* Allauth */
+
+.auth-form input {
+    background-color: #1e293b;
+    border: 1px solid rgba(255,255,255,.15);
+    color: var(--text-color);
+    border-radius: 6px;
+    padding: 10px;
+}
+
+.auth-form input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 8px rgba(0, 229, 255, 0.25);
+    outline: none;
+}
+
+.auth-form .helptext {
+    font-size: 0.85rem;
+    color: #94a3b8;
+}
+
+.auth-form a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.auth-form a:hover {
+    color: var(--secondary-color);
+    text-decoration: underline;
+}
+
 /* Toasts */
 
 .custom-toast {
