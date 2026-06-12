@@ -5,16 +5,55 @@ from django.views.decorators.http import require_POST
 
 def all_products(request):
     """
-    Display all games
+    Display all games with filtering.
     """
 
     games = Game.objects.all()
 
+    genre = request.GET.get('genre')
+    console = request.GET.get('console')
+    available = request.GET.get('available')
+    query = request.GET.get('q')
+
+    # Search by title
+    if query:
+        games = games.filter(
+            title__icontains=query
+        )
+
+    if genre:
+        games = games.filter(
+            genre=genre
+        )
+
+    if console:
+        games = games.filter(
+            console=console
+        )
+
+    # Filter games that have at least one available copy
+    if available:
+        games = games.filter(
+            graded_items__is_available=True
+        ).distinct()
+
     context = {
         'games': games,
+
+        'genres': Game.GENRE_CHOICES,
+        'consoles': Game.CONSOLE_CHOICES,
+
+        'current_genre': genre,
+        'current_console': console,
+        'current_available': available,
+        'current_query': query,
     }
 
-    return render(request, 'store/store.html', context)
+    return render(
+        request,
+        'store/store.html',
+        context
+    )
 
 def game_detail(request, game_id):
     """

@@ -7,47 +7,114 @@ Store
 {% block content %}
 
 <div class="container">
+  <h1 class="mb-4">Store</h1>
 
-    <h1 class="mb-4">Store</h1>
+    <div class="card filter-card mb-4">
+    <div class="card-body">
 
-    <div class="row">
+        <form method="GET">
 
-        {% for game in games %}
+            <div class="row g-3">
 
-            <div class="col-md-6 col-lg-4 mb-4">
+                <!-- Search -->
 
-                <div class="card store-card h-100">
+                <div class="col-lg-4">
 
-                    <div class="image-container">
-                    {% if game.cover_image %}
-                        <img
-                            src="{{ game.cover_image.url }}"
-                            class="card-img-top"
-                            alt="{{ game.title }}">
-                    {% endif %}
-                    </div>
+                    <label class="form-label">
+                        Search
+                    </label>
 
-                    <div class="card-body">
+                    <input
+                        type="text"
+                        name="q"
+                        class="form-control"
+                        placeholder="Search games..."
+                        value="{{ current_query|default:'' }}"
+                    >
 
-                        <h5 class="card-title">
-                            {{ game.title }}
-                        </h5>
+                </div>
 
-                        <p class="card-text">
-                            {{ game.get_console_display }}
-                        </p>
+                <!-- Genre -->
 
-                        <p class="card-text">
-                            {{ game.get_genre_display }}
-                        </p>
+                <div class="col-lg-3">
 
-                        <a
-                            href="{% url 'game_detail' game.id %}"
-                            class="btn btn-primary">
+                    <label class="form-label">
+                        Genre
+                    </label>
 
-                            View Available Graded Copies
+                    <select
+                        name="genre"
+                        class="form-select"
+                    >
 
-                        </a>
+                        <option value="">
+                            All Genres
+                        </option>
+
+                        {% for value, label in genres %}
+
+                            <option
+                                value="{{ value }}"
+                                {% if current_genre == value %}selected{% endif %}
+                            >
+                                {{ label }}
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+                <!-- Console -->
+
+                <div class="col-lg-3">
+
+                    <label class="form-label">
+                        Console
+                    </label>
+
+                    <select
+                        name="console"
+                        class="form-select"
+                    >
+
+                        <option value="">
+                            All Consoles
+                        </option>
+
+                        {% for value, label in consoles %}
+
+                            <option
+                                value="{{ value }}"
+                                {% if current_console == value %}selected{% endif %}
+                            >
+                                {{ label }}
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+                <!-- Available Only -->
+
+                <div class="col-lg-2 d-flex align-items-end">
+
+                    <div class="form-check">
+
+                        <input
+                            class="form-check-input"
+                            type="checkbox"
+                            name="available"
+                            value="1"
+                            {% if current_available %}checked{% endif %}
+                        >
+
+                        <label class="form-check-label">
+                            Available Only
+                        </label>
 
                     </div>
 
@@ -55,14 +122,64 @@ Store
 
             </div>
 
-        {% empty %}
+            <div class="mt-4">
 
-            <p>No games available.</p>
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                >
+                    Apply Filters
+                </button>
 
-        {% endfor %}
+                <a
+                    href="{% url 'store' %}"
+                    class="btn btn-outline-primary"
+                >
+                    Clear Filters
+                </a>
+
+            </div>
+
+        </form>
 
     </div>
+</div>
 
+  <div class="row">
+    {% for game in games %}
+
+    <div class="col-md-6 col-lg-4 mb-4">
+      <div class="card store-card h-100">
+        <div class="image-container">
+          {% if game.cover_image %}
+          <img
+            src="{{ game.cover_image.url }}"
+            class="card-img-top"
+            alt="{{ game.title }}"
+          />
+          {% endif %}
+        </div>
+
+        <div class="card-body">
+          <h5 class="card-title">{{ game.title }}</h5>
+
+          <p class="card-text">{{ game.get_console_display }}</p>
+
+          <p class="card-text">{{ game.get_genre_display }}</p>
+
+          <a href="{% url 'game_detail' game.id %}" class="btn btn-primary">
+            View Available Graded Copies
+          </a>
+        </div>
+      </div>
+    </div>
+
+    {% empty %}
+
+    <p>No games available.</p>
+
+    {% endfor %}
+  </div>
 </div>
 
 {% endblock %}

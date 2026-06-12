@@ -238,6 +238,16 @@ a:hover {
     padding: 0.9rem 2rem;
 }
 
+/* Store Filters */
+.filter-card .form-label {
+    font-weight: 600;
+    margin-bottom: .5rem;
+}
+
+.filter-card .form-check-label {
+    color: var(--text-color);
+}
+
 /* Forms */
 
 .form-control,
