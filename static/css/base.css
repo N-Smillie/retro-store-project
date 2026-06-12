@@ -121,12 +121,17 @@ a:hover {
 /* Cards */
 
 .card {
-    background-color: #1e293b;
+    background-color: #000000;
     border: 2px solid var(--secondary-color);
     border-radius: 12px;
     color: var(--text-color);
 }
 
+.card:hover {
+    box-shadow:
+        0 0 15px rgba(0, 229, 255, 0.25),
+        0 0 30px rgba(255, 0, 255, 0.10);
+}
 
 /* Store cards */
 
@@ -157,6 +162,81 @@ a:hover {
     object-fit: contain;
 }
 
+/* Homepage */
+
+.retro-hero-container {
+    min-height: 75vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.retro-hero-panel {
+    max-width: 900px;
+    width: 100%;
+
+    text-align: center;
+
+    padding: 4rem 2rem;
+
+    background-color: #000000;
+
+    border: 3px solid var(--secondary-color);
+    border-radius: 12px;
+
+    box-shadow:
+        0 0 20px rgba(0, 229, 255, 0.25),
+        0 0 40px rgba(255, 0, 255, 0.15);
+}
+
+.retro-hero-title {
+    font-family: var(--primary-font);
+
+    font-size: clamp(3rem, 8vw, 6rem);
+
+    font-weight: 800;
+
+    text-transform: uppercase;
+
+    letter-spacing: 4px;
+
+    margin-bottom: 1.5rem;
+
+    color: var(--primary-color);
+
+    text-shadow:
+        0 0 8px rgba(0, 229, 255, 0.8),
+        0 0 20px rgba(0, 229, 255, 0.4);
+}
+
+.retro-hero-tagline {
+    font-family: var(--secondary-font);
+
+    font-size: 1.2rem;
+
+    max-width: 650px;
+
+    margin: 0 auto 2rem;
+
+    line-height: 1.8;
+
+    color: var(--text-color);
+}
+
+.retro-start-btn {
+    min-width: 180px;
+
+    font-family: var(--primary-font);
+
+    font-size: 1.1rem;
+
+    text-transform: uppercase;
+
+    letter-spacing: 2px;
+
+    padding: 0.9rem 2rem;
+}
 
 /* Forms */
 

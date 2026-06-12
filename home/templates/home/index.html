@@ -6,13 +6,25 @@ Home
 
 {% block content %}
 
-<div class="text-center">
+<div class="retro-hero-container">
 
-    <h1>Retro Store</h1>
+    <div class="retro-hero-panel">
 
-    <p>
-        Buy professionally graded retro video games.
-    </p>
+        <h1 class="retro-hero-title">
+            Retro Store
+        </h1>
+
+        <p class="retro-hero-tagline">
+            Discover, collect, and own professionally graded retro video games.
+            From iconic classics to rare collector's pieces, build the collection
+            you've always wanted.
+        </p>
+
+        <a href="{% url 'store' %}" class="btn btn-primary retro-start-btn">
+            Start
+        </a>
+
+    </div>
 
 </div>
 
