@@ -81,6 +81,18 @@ def add_to_basket(request, item_id):
     item_id = int(item_id)
     item = get_object_or_404(GradedItem, pk=item_id)
 
+    if not item.is_available:
+
+        messages.error(
+            request,
+            "This item has already been sold."
+        )
+
+        return redirect(
+            'game_detail',
+            game_id=item.game.id
+        )
+
     basket = [int(x) for x in request.session.get('basket', [])]
 
     if item_id not in basket:

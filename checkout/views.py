@@ -61,6 +61,9 @@ def checkout(request):
                     item_price=item.price,
                 )
 
+                item.is_available = False
+                item.save()
+
             request.session['basket'] = []
 
             messages.success(
