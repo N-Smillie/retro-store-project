@@ -19,12 +19,81 @@
 
                     <hr>
 
-                    <h5>Default Shipping</h5>
+                    <h5 class="mb-3">
 
-                    <p>{{ profile.default_street_address1 }}</p>
-                    <p>{{ profile.default_town_or_city }}</p>
-                    <p>{{ profile.default_postcode }}</p>
-                    <p>{{ profile.default_country }}</p>
+                        Default Shipping
+
+                    </h5>
+
+                    <form method="POST">
+
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+
+                            {{ form.default_phone_number.label_tag }}
+
+                            {{ form.default_phone_number }}
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            {{ form.default_street_address1.label_tag }}
+
+                            {{ form.default_street_address1 }}
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            {{ form.default_street_address2.label_tag }}
+
+                            {{ form.default_street_address2 }}
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            {{ form.default_town_or_city.label_tag }}
+
+                            {{ form.default_town_or_city }}
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            {{ form.default_postcode.label_tag }}
+
+                            {{ form.default_postcode }}
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            {{ form.default_county.label_tag }}
+
+                            {{ form.default_county }}
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            {{ form.default_country.label_tag }}
+
+                            {{ form.default_country }}
+
+                        </div>
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary w-100">
+
+                            Save Details
+
+                        </button>
+
+                    </form>
 
                 </div>
             </div>

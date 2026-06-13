@@ -77,7 +77,38 @@ def checkout(request):
             messages.error(request, "There was an error with your form. Please check your details.")
 
     else:
-        order_form = OrderForm()
+
+        profile = request.user.profile
+
+        order_form = OrderForm(
+
+            initial={
+
+                'email':
+                    request.user.email,
+
+                'phone_number':
+                    profile.default_phone_number,
+
+                'street_address1':
+                    profile.default_street_address1,
+
+                'street_address2':
+                    profile.default_street_address2,
+
+                'town_or_city':
+                    profile.default_town_or_city,
+
+                'postcode':
+                    profile.default_postcode,
+
+                'county':
+                    profile.default_county,
+
+                'country':
+                    profile.default_country,
+            }
+        )
 
     context = {
         'items': items,
