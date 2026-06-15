@@ -42,6 +42,14 @@
                 {{ game.description }}
             </p>
 
+            <a
+                href="{% url 'add_to_wishlist' game.id %}"
+                class="btn btn-primary">
+
+                Add to Wishlist
+
+            </a>
+
         </div>
 
     </div>

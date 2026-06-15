@@ -346,3 +346,19 @@ a:hover {
     opacity: 0.45;
     filter: grayscale(100%);
 }
+
+/* Wishlist */
+
+.wishlist-actions {
+
+    display: flex;
+
+    gap: 0.75rem;
+
+}
+
+.wishlist-actions .btn {
+
+    flex: 1;
+
+}
