@@ -125,6 +125,7 @@ a:hover {
     border: 2px solid var(--secondary-color);
     border-radius: 12px;
     color: var(--text-color);
+    overflow: hidden;
 }
 
 .card:hover {
@@ -175,16 +176,11 @@ a:hover {
 .retro-hero-panel {
     max-width: 900px;
     width: 100%;
-
     text-align: center;
-
     padding: 4rem 2rem;
-
     background-color: #000000;
-
     border: 3px solid var(--secondary-color);
     border-radius: 12px;
-
     box-shadow:
         0 0 20px rgba(0, 229, 255, 0.25),
         0 0 40px rgba(255, 0, 255, 0.15);
@@ -192,19 +188,12 @@ a:hover {
 
 .retro-hero-title {
     font-family: var(--primary-font);
-
     font-size: clamp(3rem, 8vw, 6rem);
-
     font-weight: 800;
-
     text-transform: uppercase;
-
     letter-spacing: 4px;
-
     margin-bottom: 1.5rem;
-
     color: var(--primary-color);
-
     text-shadow:
         0 0 8px rgba(0, 229, 255, 0.8),
         0 0 20px rgba(0, 229, 255, 0.4);
@@ -212,29 +201,19 @@ a:hover {
 
 .retro-hero-tagline {
     font-family: var(--secondary-font);
-
     font-size: 1.2rem;
-
     max-width: 650px;
-
     margin: 0 auto 2rem;
-
     line-height: 1.8;
-
     color: var(--text-color);
 }
 
 .retro-start-btn {
     min-width: 180px;
-
     font-family: var(--primary-font);
-
     font-size: 1.1rem;
-
     text-transform: uppercase;
-
     letter-spacing: 2px;
-
     padding: 0.9rem 2rem;
 }
 
@@ -350,15 +329,53 @@ a:hover {
 /* Wishlist */
 
 .wishlist-actions {
-
     display: flex;
-
     gap: 0.75rem;
 
 }
 
 .wishlist-actions .btn {
-
     flex: 1;
+}
+
+/* Order History */
+
+.order-history {
+    border: 1px solid var(--primary-color);
+}
+
+/* Basket */
+.basket-image {
+    height: 200px;
+    width: 100%;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.basket-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+
+.basket-actions {
+    display: flex;
+    gap: .5rem;
+}
+
+@media (max-width: 576px) {
+
+    .basket-actions {
+        flex-direction: column;
+    }
+
+    .basket-actions .btn {
+        width: 100%;
+    }
 
 }
