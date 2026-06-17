@@ -1,6 +1,6 @@
 # UX
 ## Project Goals
-
+The goal of this project is to design and develop a full-stack e-commerce website for retro video games. The website allows users to browse a collection of retro games and filter games by console, genre, and availability. Each graded item represents a unique product instance with its own condition and pricing, reflecting a real-world collectible marketplace.
 
 ## User Stories
 
@@ -90,19 +90,34 @@
 
 
 ## Design Choices
+The Retro Store was desgined to look like retro arcade games while still feeling modern and maintaining readability and usability throughout.
+The overall design uses a dark theme combined with neon accent colours. Consistency was prioritised across all pages to ensure users can navigate the site intuitively.
 
-
-### Color Scheme
-
+### Colour Scheme
+* Navy Blue (#0f172a) - Page background
+* Black (#000000) - Card background
+* Neon Blue (#00e5ff) - Buttons & titles
+* Neon Pink (#d946ef) - Card borders & hover effects
+* Ghost White (#f8fafc) - Text colour for contrast
 
 ### Fonts
+Two fonts were chosen for the retro yet modern identity of the website while maintaining readability:
 
+* **Orbitron:** used for headings and branding elements, including the homepage hero section
+* **Electrolize:** used for body text to improve readability across desktop and mobile devices
 
 ### Layout
+The website uses a responsive, card-based layout built with Bootstrap. Each page feels unique but with consistent elements to clearly be part of the same website.
 
+Key layout decisions include:
+
+* A responsive navigation bar that collapses on smaller screens
+* Consistent card styling across the store, basket, wishlist, checkout, and profile pages
+* Large product images to showcase games and graded items
+* Mobile-first responsive design to ensure usability across different screen sizes
 
 ### Imagery
-
+Game cover images are used in the store page and game detail page for recognisability, whereas individual slab images are used for graded copies so the user knows exactly what they are buying.
 
 # Database Design
 
