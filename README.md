@@ -200,18 +200,132 @@ The models are connected using OneToOneField and ForeignKey relationships:
 
 # Features
 ## Existing Features
+#### User Authentication
+
+* User registration, login, and logout using Django Allauth
+* Persistent user sessions
+* Personal profile page for authenticated users
+
+#### Homepage
+
+* Custom hero section introducing the Retro Store brand
+* Retro styling using a dark theme with neon accent colours
+* Call-to-action button linking directly to the store
+
+#### Store
+
+* Browse a catalogue of retro games
+* Responsive Bootstrap card layout
+* Filtering by: Genre, Console, Availability
+* Links to individual game detail pages
+
+#### Game Detail Pages
+
+* Displays game information
+* Shows all graded copies associated with the game
+* Sold items remain visible but are unavailable for purchase
+* Available items can be added to the basket
+* Games can be added to wishlist
+
+#### Wishlist
+
+Authenticated users can:
+
+* Add games to their wishlist
+* Remove games from their wishlist
+* Add notes to wishlist items
+* Update existing notes
+* Delete notes by clearing the text area and saving
+
+#### Basket
+
+* Add graded items to the basket
+* Remove items from the basket
+* View basket contents and order total
+* Continue shopping or proceed to checkout buttons
+
+Because graded items are unique collectibles, quantity adjustments are not necessary
+
+#### Checkout
+
+* Secure checkout process using Stripe
+* Shipping information form
+* Successful checkout redirects users to an order confirmation page
+
+#### Order Management
+
+Authenticated users can:
+
+* View previous orders
+* View order totals
+* Save default shipping information for future purchases
 
 ## Future Features
+
+The following features could be added in future versions of the project:
+
+#### Email Confirmations
+
+* Send order confirmation emails after successful purchases
+* Notify users when wishlist items become available. This would require giving users the option to save wishlist items, for example, with minimum grade or maximum price
+
+#### Advanced Filtering
+
+* Filter by price range and grade. This would require restructuring the filtering system to operate at the graded item level
+
+#### Price History
+
+A future version of the website could display historical price data for graded items. Users could:
+
+* View a graph showing how prices for graded copies have changed over time
+* Compare prices across different grades
+
+This feature could be implemented when enough sales data has been collected
 
 ## CRUD Functionality
 **Create:** 
 
+Authenticated users can create wishlist entries by adding games to their wishlist. Users can also create notes associated with wishlist items to record additional information or preferences.
+
+Administrators can create new games and graded items through Django admin.
+
 **Read:** 
+
+Users can view:
+
+* Available games and graded items in the store
+* Detailed game information
+* Wishlist entries and notes
+* Basket contents
+* Order history
+
+Administrators can view all games, graded items, users, and orders through Django admin.
 
 **Update:** 
 
+Users can update:
+
+* Wishlist notes
+* Default shipping information
+
+Administrators can update:
+
+* Game details
+* Graded items
+
 **Delete:** 
 
+Users can delete:
+
+* Games from their wishlist
+* Notes from their wishlisted games
+
+Administrators can delete:
+
+* Games
+* Graded items
+
+Deleting a game automatically removes its associated graded items
 
 # Technologies Used
 ## Languages
