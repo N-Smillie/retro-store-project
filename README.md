@@ -120,17 +120,88 @@ Key layout decisions include:
 Game cover images are used in the store page and game detail page for recognisability, whereas individual slab images are used for graded copies so the user knows exactly what they are buying.
 
 # Database Design
-
+The database structure was designed so users can browse games, purchase unique graded items, save wishlist entries, and view their order history.
 
 ## Models
 
+#### Game
+The Game model stores information about each retro game.
+
+* title
+* console
+* genre
+* description
+* cover_image
+
+Each game can have multiple graded copies linked through a one-to-many relationship.
+
+#### GradedItem
+The GradedItem model stores individual graded copies of a game.
+
+* game
+* grade
+* price
+* is_available
+* slab_image
+* created_at
+
+Each graded item belongs to a single game and represents a unique product.
+
+#### Wishlist
+The Wishlist model stores a user's wishlist.
+
+* user_profile
+
+Each wishlist belongs to one user profile and can contain multiple wishlist items.
+
+#### WishlistItem
+The WishlistItem model stores individual games saved to a wishlist.
+
+* wishlist
+* game
+* notes
+
+Each wishlist item belongs to one wishlist and references one game.
+
+#### Order
+The Order model stores information about customer purchases.
+
+* order_number
+* user
+* shipping information (name, address etc)
+* stripe_pid
+* order_total
+* created_at
+
+Each order belongs to one user and can contain multiple order line items.
+
+#### OrderLineItem
+The OrderLineItem model stores the products purchased within an order.
+
+* order
+* graded_item
+* item_price
+
+Each order line item connects an order with a graded item.
 
 ## Relationships
+The models are connected using OneToOneField and ForeignKey relationships:
+
+* A UserProfile has one Wishlist
+* A Wishlist can have many WishlistItems
+* A WishlistItem belongs to one Wishlist and one Game
+* A Game has many GradedItems
+* A User can have many Orders
+* An Order can have many OrderLineItems
+* A GradedItem belongs to one Game
+* A GradedItem can be purchased through an OrderLineItem
+* An OrderLineItem belongs to one Order and one GradedItem
 
 
 # Features
 ## Existing Features
 
+## Future Features
 
 ## CRUD Functionality
 **Create:** 
