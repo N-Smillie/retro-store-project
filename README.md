@@ -503,16 +503,37 @@ Deleting a game automatically removes its associated graded items
 
 
 ## Controls
-
+All interactive controls were manually tested throughout the application.
 
 ### Buttons
-
+* Start – Navigates users from the homepage to the store.
+* Add to Basket – Adds an available graded item to the basket.
+* Remove Item – Removes a graded item from the basket.
+* Add to Wishlist – Saves a game to the user's wishlist.
+* Save Notes – Updates notes attached to wishlist items.
+* Proceed to Checkout – Begins the checkout process.
+* Apply Filters – Filters games by console, genre, and availability.
+* Clear Filters - Resets filters.
+* Continue Shopping & Back to Store - Returns user to the store.
 
 ### Forms
-
+* User authentication (registration and login)
+* Checkout and shipping information
+* Store filtering
+* Wishlist notes
+* Default shipping details on the profile page
 
 ### Navigation
+The site uses a responsive navigation bar on all pages.
 
+* Home
+* Store
+* Wishlist
+* Profile
+* Basket
+* Login/Logout
+
+The navigation bar collapses into a mobile-friendly menu on smaller screens to maintain usability across devices.
 
 ## Responsive Design
 
