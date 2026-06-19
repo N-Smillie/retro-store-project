@@ -63,7 +63,7 @@
             </li>
             
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'wishlist' %}"> Wishlist </a>
+              <a class="nav-link {% if request.path == '/wishlist/' %}active-nav{% endif %}" href="{% url 'wishlist' %}"> Wishlist </a>
             </li>
 
             <li class="nav-item">

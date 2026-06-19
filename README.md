@@ -329,13 +329,24 @@ Deleting a game automatically removes its associated graded items
 
 # Technologies Used
 ## Languages
-
+* HTML
+* CSS
+* JavaScript
+* Python
+* SQL
 
 ## Frameworks & Libraries
-
+* Django
+* Django Allauth
+* Bootstrap
+* Stripe
+* Google Fonts
 
 ## Tools
-
+* Github
+* VS Code
+* Heroku
+* Chrome DevTools
 
 # Testing
 
