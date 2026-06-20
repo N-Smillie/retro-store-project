@@ -536,16 +536,36 @@ The site uses a responsive navigation bar on all pages.
 The navigation bar collapses into a mobile-friendly menu on smaller screens to maintain usability across devices.
 
 ## Responsive Design
+The website was designed using a mobile-first approach and tested across a range of screen sizes using Chrome DevTools.
 
+Responsive features include:
+
+* Bootstrap grid system used throughout the site
+* Navigation bar collapses on mobile
+* Cards stack vertically on smaller screens
+* Buttons and forms remain accessible and readable across all screen sizes
 
 ## Visual Feedback
+Visual feedback is provided throughout the site to improve usability and inform users when actions have been completed successfully.
 
+Examples include:
 
-### Examples
-
+* Django messages and toast notifications
+* Hover states on buttons and links
+* Sold graded items are visually distinguished using reduced opacity and grayscale styling
+* Active navigation links highlight the user's current location within the site
+* Form validation messages are displayed when invalid data is submitted
 
 ## Bugs & Fixes
 
+| Bug | Fix |
+|------|-----|
+| Sold graded items could still be purchased | Updated checkout logic to set `is_available=False` after successful order creation |
+| Wishlist notes were not saving | Moved the Save button inside the form |
+| Basket images overflowed card boundaries on mobile | Added dedicated basket image container styling with fixed dimensions |
+| Basket action buttons became cramped on mobile | Added responsive flexbox styling |
+| Order totals overflowed profile cards on smaller screens | Updated layout styling to allow prices to wrap correctly |
+| Wishlist navbar link was not highlighted as active | Added active state logic |
 
 ## Validator Testing
 
