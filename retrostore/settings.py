@@ -44,6 +44,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
+    'cloudinary',
+    'cloudinary_storage',
+
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -155,9 +158,51 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+STORAGES = {
+
+    "default": {
+
+        "BACKEND": (
+
+            "cloudinary_storage.storage.MediaCloudinaryStorage"
+
+        ),
+
+    },
+
+    "staticfiles": {
+
+        "BACKEND": (
+
+            "django.contrib.staticfiles.storage.StaticFilesStorage"
+
+        ),
+
+    },
+
+}
+
 LOGIN_URL = 'account_login'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
+
+
+CLOUDINARY_STORAGE = {
+
+    'CLOUD_NAME': os.environ.get(
+        'CLOUDINARY_CLOUD_NAME'
+    ),
+
+    'API_KEY': os.environ.get(
+        'CLOUDINARY_API_KEY'
+    ),
+
+    'API_SECRET': os.environ.get(
+        'CLOUDINARY_API_SECRET'
+    ),
+
+}
+
 
 # Stripe settings
 STRIPE_PUBLIC_KEY = os.environ.get(

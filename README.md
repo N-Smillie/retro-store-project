@@ -368,6 +368,7 @@ Deleting a game automatically removes its associated graded items
 * Bootstrap
 * Stripe
 * Google Fonts
+* Cloudinary
 
 ## Tools
 * Github
