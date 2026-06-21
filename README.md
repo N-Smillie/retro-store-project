@@ -87,6 +87,13 @@ The goal of this project is to design and develop a full-stack e-commerce websit
 
 ## Wireframes
 
+![StoreWF](assets/images/store-wf.png)
+
+![GameDetailWF](assets/images/gamedetail-wf.png)
+
+![ProfileWF](assets/images/profile-wf.png)
+
+![CheckoutWF](assets/images/checkout-wf.png)
 
 
 ## Design Choices
