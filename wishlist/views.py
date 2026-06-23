@@ -10,6 +10,7 @@ from django.contrib import messages
 from .models import Wishlist, WishlistItem
 from store.models import Game
 
+
 @login_required
 def view_wishlist(request):
 
@@ -40,6 +41,7 @@ def view_wishlist(request):
         context
 
     )
+
 
 @login_required
 def add_to_wishlist(
@@ -93,6 +95,7 @@ def add_to_wishlist(
         game_id=game.id
 
     )
+
 
 @login_required
 def remove_from_wishlist(

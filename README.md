@@ -649,27 +649,41 @@ Examples include:
 
 ### HTML Validation
 
+All pages were validated no major HTML errors remain.
 
 ### CSS Validation
 
+Custom CSS was tested using the W3C CSS Validator. No errors were found.
 
 ### Lighthouse Scores
-**Performance:** 
+**Performance:** 95
 
-**Accessibility:** 
+**Accessibility:** 100
 
-**Best Practices:** 
+**Best Practices:** 77
 
 ### Python Validation
 
+Python code was validated using Flake8.
+
+No errors (except E501) were found after correcting minor formatting issues.s
 
 # Deployment
 ## GitHub Repository
 
+The project repository was created using GitHub for version control and project management.
+
+[GitHub](https://github.com/N-Smillie/retro-store-project)
 
 ## Heroku Deployment
 
-
+The application was deployed using Heroku.
+1. Create a new Heroku app
+2. Connect the Heroku app to the GitHub repository
+3. Configure the required environment variables (Config Vars)
+4. Deploy the project from the main branch
+5. Open the live applpication [Retrostore](https://retrostore-29fc610fcf73.herokuapp.com/)
 
 # Credits
 
+Images for Graded Items sourced from Heritage Auctions (https://www.ha.com/)

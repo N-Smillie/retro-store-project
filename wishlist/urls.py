@@ -26,6 +26,6 @@ urlpatterns = [
         'notes/<int:item_id>/',
         views.update_wishlist_notes,
         name='update_wishlist_notes'
-),
+    ),
 
 ]
